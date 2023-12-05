@@ -1,0 +1,116 @@
+{% extends 'ecommerce/Main.html'%}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        .profile-pic{
+            max-width: 200px;
+            max-height:200px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+    </style>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-body">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5" width="150px" src="{{request.user.customer.profile_pic.url}}">
+                    <span class="font-weight-bold"><strong>Hello, {{request.user}}</strong></span>
+                    <div class="my-lg-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                            <path d="M7.5 1v7h1V1h-1z"/>
+                            <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                        </svg>
+                        <a href="{% url 'logout' %}" ><h5>Logout</h5></a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="col-md-9">
+            <div class="card card-body">
+                <div class="container">
+                    <div style="text-align: left"> 
+                        <h3>Personal Informations</h3>
+                    </div>
+                    {% if page == 'userInfo' %}
+                        <div style="text-align: right">
+                            <a href="{% url 'edit_user_info' %}" >edit</a>
+                        </div>
+                        {% for customer in customerDetails %}
+                            <div class="form-row">
+                                <div class="col-md-5 mb-3" >
+                                    <h6>Name</h6>
+                                    <div >{{customer.name}}</div>
+                                </div>
+
+                                <div class="col-md-5 mb-3">
+                                    <h6>Phone</h6>
+                                    <div >{{customer.phone}}</div>
+                                </div>
+                                <div class="col-md-5 mb-3">
+                                    <h6>Email</h6>
+                                    <div >{{customer.email}}</div>
+                                </div>
+                                
+                                <div class="col-md-5 mb-3">
+                                    <h6>Profile</h6>
+                                    <div >{{customer.profile_pic}}</div>
+                                </div>
+                            </div>
+                        {% endfor %}  
+                    {% else %}
+                        <div style="text-align: right">
+                            <a href="{% url 'profile' %}" >Cancel</a>
+                        </div>
+                        <!-- multi part form data it's just for file uploads -->
+                        <form class="needs-validation" method="POST" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row"  >
+                            <div class="col-md-5 mb-3" >
+                                <h6>Name</h6>
+                                <div >{{  form.name }}</div>
+                            </div>
+
+                            <div class="col-md-5 mb-3">
+                                <h6>Phone</h6>
+                                {{ form.phone }}
+                            </div>
+
+                            <div class="col-md-5 mb-3">
+                                <h6>Email</h6>
+                                {{ form.email }}
+                            </div>
+                            
+                            <div class="col-md-5 mb-3">
+                                <h6>Profile</h6>
+                                {{ form.profile_pic }}
+                            </div>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Submit form</button>
+                        </form>
+                    {% endif %}
+                    <hr>
+                    <h4><strong>FAQs</strong></h4>
+                    <br/>
+                    <h5>What happens when I update my email address (or mobile number)?</h5>
+                    <p>Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).</p>
+                    
+                    <h5>When will my account be updated with the new email address (or mobile number)?</h5>
+                    <p>It happens as soon as you confirm the verification code sent to your email (or mobile) and save the changes.</p>
+                    
+                    <h4>What happens to my existing account when I update my email address (or mobile number)?</h4>
+                    <p>Updating your email address (or mobile number) doesn't invalidate your account. Your account remains fully functional. You'll continue seeing your Order history, saved information and personal details.</p>
+                
+                    <br/>
+                    <a href="#" >Delete Account</a>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'ecommerce/Main.html'%}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        .login--wrapper{
+            display: flex;
+            height: 100vh;
+            width: 250vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form{
+            width: 600px;
+        }
+    </style>
+    
+    <div class="container">
+        <div class="login--wrapper ">
+            <form method="post", action="" class="form">
+                {% csrf_token %}
+                <h3>Register Page</h3>
+                <div class="mb-2">
+                    <div class="form-label">
+                        {{form.username.label}}
+                    </div>
+                    {{form.username}}
+                </div>
+
+                <div class="mb-2">
+                    <div class="form-label">
+                        {{form.email.label}}
+                    </div>
+                    {{form.email}}
+                </div>
+                
+                <div class="mb-2">
+                    <div class="form-label">
+                        {{form.password1.label}}
+                    </div>
+                    {{form.password1}}
+                </div>
+                
+                <div class="mb-2">
+                    <div class="form-label">
+                        {{form.password2.label}}
+                    </div>
+                    {{form.password2}}
+                </div>
+                {{form.errors}}
+                <input type="submit" class="btn btn-primary mb-3" name="Create User">
+                <p>already have an account <a href="{% url 'login' %}">Login</a></p>  
+            </form>
+            
+        </div>
+    </div>
+
+{% endblock content %}

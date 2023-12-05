@@ -1,0 +1,27 @@
+{% extends 'ecommerce/Main.html'%}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div style="height:500px; width: 400px" class="col-lg-6 col-xl-6">
+            <div class="card text-black">
+                <img src="{{product.imageURL}}"/>
+                <hr>
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-danger add-btn update-cart">Add to Cart</button>  
+            </div>
+        </div>
+        <div class="col-lg-6">
+                <a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Store</a>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span style="size: 100px;">{{product.name}}</span>
+                </div>
+                <hr>
+                <h3 class="quantity">₹{{product.price}}</h3>
+                <hr>
+                <h4>Description:</h4>
+                <span>{{product.description}}</span>
+        </div>
+    </div>
+    
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'ecommerce/Main.html'%}
+{% load static %}
+
+{% block content %}
+    <style>
+        .login--wrapper{
+            display: flex;
+            height: 80vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form{
+            width: 600px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="login--wrapper">
+            <form method="post" class="form">
+                {% csrf_token %}
+                <h3>Login Page</h3>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword5" class="form-label">Password</label>
+                    <input type="password" id="inputPassword5" name="password" class="form-control" aria-labelledby="passwordHelpBlock">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Login</button>
+                </div>
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+
+                <p>don't have an account <a href="{% url 'register' %}">Register</a></p>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
